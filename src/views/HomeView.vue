@@ -4,6 +4,10 @@
 
       <!-- TOPBAR -->
       <div class="topbar">
+        <RouterLink to="/info" class="nav-btn" title="Información de la app">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Info</span>
+        </RouterLink>
         <button class="nav-btn" @click="toggleTheme">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <template v-if="isDark"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></template>
@@ -12,6 +16,7 @@
           <span>{{ isDark ? 'Modo claro' : 'Modo oscuro' }}</span>
         </button>
       </div>
+
 
       <!-- HEADER -->
       <header class="site-header">
@@ -191,6 +196,7 @@ h1           { font-size: clamp(2.6rem, 8vw, 5rem); margin-bottom: 0; }
   font-family: 'Neocat', 'Cormorant Garamond', serif;
   font-size: 1.05rem; font-weight: normal; color: var(--ink);
   line-height: 1.2; transition: color .15s;
+  word-break: break-word; hyphens: auto;
 }
 .word-card:hover .word-card-name { color: var(--gold); }
 .word-card-citas {

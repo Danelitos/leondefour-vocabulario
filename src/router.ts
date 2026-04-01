@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from './views/HomeView.vue'
 import WordView from './views/WordView.vue'
+import InfoView from './views/InfoView.vue'
 
 // Only allow slugs made of word-characters, hyphens and spaces (URL-encoded)
 const VALID_SLUG = /^[a-z0-9_-]+$/i
@@ -11,6 +12,10 @@ export default createRouter({
     {
       path: '/',
       component: HomeView,
+    },
+    {
+      path: '/info',
+      component: InfoView,
     },
     {
       path: '/palabra/:slug',
