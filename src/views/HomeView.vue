@@ -230,11 +230,6 @@ h1           { font-size: clamp(2.6rem, 8vw, 5rem); margin-bottom: 0; }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
 @media (max-width: 640px) {
   /* Topbar */

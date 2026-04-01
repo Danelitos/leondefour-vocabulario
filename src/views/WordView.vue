@@ -419,7 +419,7 @@ onMounted(() => { void store.cargar() })
   cursor: pointer; transition: background .12s; white-space: nowrap;
   font-family: 'Instrument Sans', sans-serif;
 }
-.article-text :deep(.cita-inline:hover) { background: #EDD88A; text-decoration: underline; }
+.article-text :deep(.cita-inline:hover) { background: var(--gold-bdr); text-decoration: underline; }
 
 .no-texto {
   display: flex; flex-direction: column; align-items: center;
@@ -499,10 +499,6 @@ onMounted(() => { void store.cargar() })
   animation: spin .7s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
 /* Prev / Next navigation */
 .word-nav {
