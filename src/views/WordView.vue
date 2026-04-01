@@ -278,12 +278,7 @@ onMounted(() => { void store.cargar() })
   position: sticky;
   top: 0;
   z-index: 20;
-  /* Semi-transparent so the body gradient shows through, matching the rest of the page */
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  background: var(--bg); /* fallback for older browsers */
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--bg);
   border-bottom: 1.5px solid var(--border);
   display: flex;
   align-items: center;
