@@ -28,6 +28,7 @@
           <h1>León <em>Dufour</em></h1>
         </div>
         <p class="header-sub">Vocabulario de Teología Bíblica</p>
+        <p class="header-tagline">Consulta digital del diccionario teológico de Xavier Léon-Dufour</p>
       </header>
 
       <!-- SEARCH + FILTERS -->
@@ -121,7 +122,10 @@ function palabraAleatoria(): void {
   void router.push(`/palabra/${p.slug}`)
 }
 
-onMounted(() => { void store.cargar() })
+onMounted(() => {
+  document.title = 'León Dufour'
+  void store.cargar()
+})
 </script>
 
 <style scoped>
@@ -132,7 +136,8 @@ onMounted(() => { void store.cargar() })
 .header-title-row { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 6px; }
 .header-cross-svg { height: clamp(1.8rem, 5vw, 3.2rem); width: auto; color: var(--gold); flex-shrink: 0; }
 h1           { font-size: clamp(2.6rem, 8vw, 5rem); margin-bottom: 0; }
-.header-sub  { font-size: .95rem; color: var(--ink2); margin-bottom: 32px; letter-spacing: .01em; }
+.header-sub  { font-size: .95rem; color: var(--ink2); margin-bottom: 6px; letter-spacing: .01em; }
+.header-tagline { font-size: .8rem; color: var(--ink3); font-style: italic; margin-bottom: 28px; }
 
 /* Search area */
 .search-area   { margin-bottom: 8px; }

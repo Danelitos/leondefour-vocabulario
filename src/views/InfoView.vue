@@ -133,11 +133,14 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useTheme } from '../composables/useTheme'
 import SiteFooter from '../components/SiteFooter.vue'
 
 const { isDark, toggleTheme } = useTheme()
+
+onMounted(() => { document.title = 'Info · León Dufour' })
 </script>
 
 <style scoped>

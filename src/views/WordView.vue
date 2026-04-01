@@ -278,7 +278,15 @@ onMounted(() => { void store.cargar() })
   position: sticky;
   top: 0;
   z-index: 20;
-  background: var(--bg);
+  /* Same gradient as body — background-attachment:fixed uses viewport coords
+     so it lines up perfectly. No animation with transform (breaks fixed bg). */
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 10% 15%, rgba(181,133,26,.08) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 90% 85%, rgba(31,107,71,.06) 0%, transparent 50%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   border-bottom: 1.5px solid var(--border);
   display: flex;
   align-items: center;
@@ -286,7 +294,7 @@ onMounted(() => { void store.cargar() })
   gap: 16px;
   padding: 14px 0;
   margin-bottom: 24px;
-  animation: fadeUp .3s ease both;
+  margin-top: 4px;
 }
 .card-word {
   font-family: 'Neocat', 'Cormorant Garamond', serif;

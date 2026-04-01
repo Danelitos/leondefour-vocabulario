@@ -47,16 +47,17 @@
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Instrument Sans', sans-serif;
-  background: var(--bg); color: var(--ink);
+  background-color: var(--bg); color: var(--ink);
   min-height: 100vh; -webkit-font-smoothing: antialiased;
   transition: var(--tt);
-}
-body::before {
-  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background:
+  /* Gradient applied directly on body so any element can replicate it
+     exactly using background-attachment:fixed with the same values */
+  background-image:
     radial-gradient(ellipse 70% 50% at 10% 15%, rgba(181,133,26,.08) 0%, transparent 55%),
     radial-gradient(ellipse 50% 70% at 90% 85%, rgba(31,107,71,.06) 0%, transparent 50%);
-  transition: var(--tt);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .page { position: relative; z-index: 1; }
