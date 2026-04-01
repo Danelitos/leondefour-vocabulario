@@ -96,10 +96,17 @@
             <p>No hay citas para esta palabra</p>
           </div>
           <template v-else>
-            <p class="citas-intro">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Toca cualquier cita para abrirla en Bible Gateway (RVR1960)
-            </p>
+            <div class="citas-toolbar">
+              <p class="citas-intro">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Toca cualquier cita para abrirla en Bible Gateway (RVR1960)
+              </p>
+              <button class="export-btn" :disabled="exportando" @click="exportarExcel" title="Exportar citas a Excel">
+                <svg v-if="exportando" class="export-spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+                {{ exportando ? 'Exportando…' : 'Exportar Excel' }}
+              </button>
+            </div>
             <div class="citas-columnas">
 
               <div v-if="citasCat.libros.length" class="citas-col">
@@ -181,6 +188,7 @@ import { useTheme } from '../composables/useTheme'
 import {
   decodeEntities, resaltarCitas, categorizarCitas, extraerSintesis,
 } from '../utils/leondufour'
+import { exportarCitasExcel } from '../utils/exportCitas'
 import SiteFooter from '../components/SiteFooter.vue'
 import type { Word } from '../types'
 
@@ -240,6 +248,21 @@ function handleCitaClick(e: MouseEvent): void {
   const span = (e.target as Element).closest('.cita-inline')
   if (span instanceof HTMLElement && span.dataset.cita) {
     abrirCita(span.dataset.cita)
+  }
+}
+
+const exportando = ref(false)
+
+async function exportarExcel(): Promise<void> {
+  if (!palabra.value || exportando.value) return
+  exportando.value = true
+  try {
+    await exportarCitasExcel(palabra.value.nombre, citasCat.value)
+  } catch (err) {
+    if (import.meta.env.DEV) console.error('[export]', err)
+    alert('No se pudo exportar el Excel. Inténtalo de nuevo.')
+  } finally {
+    exportando.value = false
   }
 }
 
@@ -404,11 +427,28 @@ onMounted(() => { void store.cargar() })
 
 /* Citations */
 .citas-section { margin-bottom: 40px; }
+.citas-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
+}
 .citas-intro {
-  font-size: .76rem; color: var(--ink3); margin-bottom: 18px;
+  font-size: .76rem; color: var(--ink3); margin-bottom: 0;
   display: flex; align-items: center; gap: 6px;
 }
 .citas-intro svg { width: 13px; height: 13px; flex-shrink: 0; }
+.export-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 100px; cursor: pointer;
+  font-size: .74rem; font-weight: 600; font-family: 'Instrument Sans', sans-serif;
+  background: #1D6B3A; color: #fff; border: none;
+  transition: background .15s, opacity .15s;
+  white-space: nowrap; flex-shrink: 0;
+}
+.export-btn:hover:not(:disabled) { background: #175830; }
+.export-btn:disabled { opacity: .6; cursor: not-allowed; }
+.export-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.export-spin { animation: spin-slow .9s linear infinite; }
 .citas-columnas {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
