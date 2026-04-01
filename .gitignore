@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Scraper temp files
+scripts/_scrape_progress.json
+
+# Claude Code internal settings
+.claude/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Env files (secrets)
+.env
+.env.local
+.env.*.local

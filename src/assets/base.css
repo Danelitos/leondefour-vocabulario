@@ -1,0 +1,64 @@
+/* ─── FONTS ─────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Neocat';
+  src: url('https://db.onlinewebfonts.com/t/bb55d205859cc448085d847cdb8ed04a.woff2') format('woff2'),
+       url('https://db.onlinewebfonts.com/t/bb55d205859cc448085d847cdb8ed04a.woff') format('woff'),
+       url('https://db.onlinewebfonts.com/t/bb55d205859cc448085d847cdb8ed04a.ttf') format('truetype');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+
+/* ─── TRANSITION SHORTHAND ───────────────────────────────────── */
+:root { --tt: background .25s, color .25s, border-color .25s, box-shadow .25s; }
+
+/* ─── LIGHT THEME ────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg: #F7F3EC; --bg2: #EEE8DC; --bg3: #E4DCCC;
+  --surface: #FFFFFF; --surface2: #FAF8F4;
+  --ink: #1A1714; --ink2: #5C5650; --ink3: #9C9690;
+  --gold: #B5851A; --gold-bg: #FDF3DC; --gold-bdr: rgba(181,133,26,.25);
+  --green: #1F6B47; --green-bg: #D4EFE2;
+  --red: #B83232; --red-bg: #FADADD;
+  --blue: #1D52C4; --purple: #7C22C2;
+  --shadow-sm: 0 1px 4px rgba(26,23,20,.07), 0 1px 2px rgba(26,23,20,.05);
+  --shadow: 0 2px 14px rgba(26,23,20,.09), 0 1px 4px rgba(26,23,20,.06);
+  --shadow-lg: 0 8px 40px rgba(26,23,20,.13), 0 2px 8px rgba(26,23,20,.08);
+  --border: rgba(26,23,20,.10); --border2: rgba(26,23,20,.06);
+  --modal-bg: rgba(26,23,20,.5);
+}
+
+/* ─── DARK THEME ─────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg: #131110; --bg2: #1C1916; --bg3: #242018;
+  --surface: #1E1B17; --surface2: #262219;
+  --ink: #F5F0E8; --ink2: #A09880; --ink3: #5C5448;
+  --gold: #D4A03A; --gold-bg: rgba(212,160,58,.12); --gold-bdr: rgba(212,160,58,.25);
+  --green: #3DAA72; --green-bg: rgba(61,170,114,.12);
+  --red: #E05555; --red-bg: rgba(224,85,85,.12);
+  --blue: #5A8EF0; --purple: #A966E8;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.3);
+  --shadow: 0 2px 14px rgba(0,0,0,.35);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.5);
+  --border: rgba(255,255,255,.09); --border2: rgba(255,255,255,.05);
+  --modal-bg: rgba(0,0,0,.65);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--bg); color: var(--ink);
+  min-height: 100vh; -webkit-font-smoothing: antialiased;
+  transition: var(--tt);
+}
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 15%, rgba(181,133,26,.08) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 90% 85%, rgba(31,107,71,.06) 0%, transparent 50%);
+  transition: var(--tt);
+}
+
+.page { position: relative; z-index: 1; }
+.wrap { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
+.hidden { display: none !important; }
