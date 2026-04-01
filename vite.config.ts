@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
+  base: '/leondefour-vocabulario/',
   plugins: [vue()],
 
   // Security headers for dev server and preview

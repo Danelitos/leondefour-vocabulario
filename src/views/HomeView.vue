@@ -168,7 +168,7 @@ h1           { font-size: clamp(2.6rem, 8vw, 5rem); margin-bottom: 0; }
 /* Word grid */
 .word-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px; padding-bottom: 48px;
 }
 .word-card-wrap {
@@ -225,11 +225,36 @@ h1           { font-size: clamp(2.6rem, 8vw, 5rem); margin-bottom: 0; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 600px) {
-  .wrap { padding: 0 14px; }
-  h1    { font-size: 2.4rem; }
-  .topbar { gap: 6px; }
+@media (max-width: 640px) {
+  /* Topbar */
+  .topbar { gap: 6px; padding-top: 12px; }
   .nav-btn span { display: none; }
+
+  /* Header */
   .header-cross-svg { height: 1.6rem; }
+  h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .header-sub { font-size: .88rem; margin-bottom: 22px; }
+
+  /* Search: font-size ≥16px prevents iOS auto-zoom on focus */
+  .search-input { font-size: 16px; padding: 12px 42px 12px 16px; }
+
+  /* Grid: 2 columns fixed on small screens */
+  .word-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding-bottom: 32px;
+  }
+
+  /* Cards: slightly more compact */
+  .word-card { padding: 12px 14px; border-radius: 12px; }
+  .word-card-name { font-size: .95rem; }
+
+  /* Stats strip wrap */
+  .stats-strip { flex-wrap: wrap; border-radius: 14px; }
+}
+
+@media (max-width: 400px) {
+  h1 { font-size: 1.9rem; }
+  .word-card { padding: 10px 12px; }
 }
 </style>

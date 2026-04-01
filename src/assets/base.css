@@ -62,3 +62,11 @@ body::before {
 .page { position: relative; z-index: 1; }
 .wrap { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
 .hidden { display: none !important; }
+
+/* ─── MOBILE BASE ────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+}
+@media (max-width: 400px) {
+  .wrap { padding: 0 12px; }
+}

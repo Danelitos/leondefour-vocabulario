@@ -284,3 +284,12 @@ h1 em { font-style: italic; color: var(--gold); }
 /* ─── ANIMATIONS ─────────────────────────────────────────────── */
 .spin { animation: spin .55s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── MOBILE GLOBALS ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Bigger touch targets for nav buttons */
+  .icon-btn, .nav-btn {
+    padding: 10px 14px;
+    min-height: 44px;
+  }
+}

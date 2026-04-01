@@ -34,7 +34,7 @@ export const useLeondufourStore = defineStore('leondufour', () => {
     if (!db.value) loading.value = true
 
     try {
-      const res = await fetch('/leondufour_data.json')
+      const res = await fetch(`${import.meta.env.BASE_URL}leondufour_data.json`)
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const text = await res.text()
       const data = JSON.parse(text) as LeondufourDB

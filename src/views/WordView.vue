@@ -520,14 +520,76 @@ onMounted(() => { void store.cargar() })
 .nav-word-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .nav-word-btn:hover { color: var(--ink); border-color: var(--gold-bdr); box-shadow: var(--shadow); }
 
-@media (max-width: 600px) {
-  .wrap         { padding: 0 14px; }
-  .card-word    { font-size: 1.5rem; }
-  .topbar       { gap: 6px; }
+/* ── MOBILE ────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Topbar */
+  .topbar { gap: 6px; padding-top: 12px; }
   .nav-btn span { display: none; }
+
+  /* Sticky nav: let title + tabs sit comfortably */
+  .sticky-nav {
+    padding: 10px 0;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .card-word { font-size: clamp(1.2rem, 5vw, 1.7rem); }
+  .sticky-tabs { gap: 4px; }
+  .sticky-tab {
+    padding: 8px 12px;
+    min-height: 44px; /* accessible touch target */
+  }
   .sticky-tab span:not(.tab-badge) { display: none; }
-  .article-text { font-size: 1rem; }
-  .citas-columnas { grid-template-columns: repeat(2, 1fr); }
-  .nav-word-btn { max-width: 140px; padding: 8px 12px; font-size: .75rem; }
+
+  /* Síntesis: less indentation, tighter padding */
+  .sintesis-card { padding: 14px 14px 16px; }
+  .sintesis-sec--lv2 { padding-left: 10px; }
+  .sintesis-sec--lv3 { padding-left: 20px; }
+
+  /* Article text: slightly smaller, comfortable line-height */
+  .article-text { font-size: .97rem; line-height: 1.82; }
+
+  /* Citas toolbar: stack vertically on mobile */
+  .citas-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  /* Export button: full width, taller touch target */
+  .export-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 16px;
+    font-size: .82rem;
+    min-height: 44px;
+  }
+
+  /* Citas grid: 2 columns */
+  .citas-columnas { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+  /* Chips: bigger touch target */
+  .cita-chip {
+    padding: 8px 10px;
+    font-size: .8rem;
+    min-height: 40px;
+    white-space: normal; /* wrap long citations instead of clipping */
+    word-break: break-word;
+  }
+
+  /* Prev/next nav */
+  .word-nav { padding: 16px 0 24px; gap: 8px; }
+  .nav-word-btn {
+    max-width: 46%;
+    padding: 10px 12px;
+    font-size: .75rem;
+    min-height: 44px;
+  }
+}
+
+/* ── VERY SMALL PHONES (≤400px) ────────────────────────────── */
+@media (max-width: 400px) {
+  .card-word { font-size: 1.15rem; }
+  /* Single column for citations on tiny screens */
+  .citas-columnas { grid-template-columns: 1fr; }
+  .sintesis-card { padding: 12px 12px 14px; }
 }
 </style>

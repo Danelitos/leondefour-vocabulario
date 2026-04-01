@@ -57,7 +57,8 @@ const showPrivacy = ref(false)
 <style scoped>
 .site-footer {
   border-top: 1px solid var(--border2);
-  padding: 22px 0 36px;
+  /* env(safe-area-inset-bottom) adds space for iPhone home indicator */
+  padding: 22px 0 max(36px, calc(24px + env(safe-area-inset-bottom)));
   margin-top: 8px;
 }
 .footer-main {
@@ -70,7 +71,7 @@ const showPrivacy = ref(false)
   font-size: .88rem; color: var(--ink3);
 }
 .footer-brand svg { width: 13px; height: 13px; color: var(--gold); }
-.footer-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.footer-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; row-gap: 8px; }
 .footer-link {
   display: inline-flex; align-items: center; gap: 5px;
   font-size: .78rem; color: var(--ink3); text-decoration: none;
