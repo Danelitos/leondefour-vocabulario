@@ -88,12 +88,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
-import { useLeondufourStore } from '../stores/leondufour.js'
-import { useTheme } from '../composables/useTheme.js'
+import { useLeondufourStore } from '../stores/leondufour'
+import { useTheme } from '../composables/useTheme'
 import SiteFooter from '../components/SiteFooter.vue'
+import type { Word } from '../types'
 
 const store  = useLeondufourStore()
 const router = useRouter()
@@ -101,21 +102,21 @@ const { isDark, toggleTheme } = useTheme()
 
 const query = ref('')
 
-const palabrasMostradas = computed(() => {
+const palabrasMostradas = computed<Word[]>(() => {
   let lista = store.palabrasOrdenadas
   const q = query.value.trim().toLowerCase()
-  if (q) lista = lista.filter(p => p.nombre.toLowerCase().includes(q))
+  if (q) lista = lista.filter((p: Word) => p.nombre.toLowerCase().includes(q))
   return lista
 })
 
-function palabraAleatoria() {
+function palabraAleatoria(): void {
   const lista = store.palabrasOrdenadas
   if (!lista.length) return
   const p = lista[Math.floor(Math.random() * lista.length)]
-  router.push(`/palabra/${p.slug}`)
+  void router.push(`/palabra/${p.slug}`)
 }
 
-onMounted(() => store.cargar())
+onMounted(() => { void store.cargar() })
 </script>
 
 <style scoped>

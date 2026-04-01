@@ -173,41 +173,44 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
-import { useLeondufourStore } from '../stores/leondufour.js'
-import { useTheme } from '../composables/useTheme.js'
+import { useLeondufourStore } from '../stores/leondufour'
+import { useTheme } from '../composables/useTheme'
 import {
   decodeEntities, resaltarCitas, categorizarCitas, extraerSintesis,
-} from '../utils/leondufour.js'
+} from '../utils/leondufour'
 import SiteFooter from '../components/SiteFooter.vue'
+import type { Word } from '../types'
 
 const route  = useRoute()
 const store  = useLeondufourStore()
 const { isDark, toggleTheme } = useTheme()
 
-const tabActual = ref('texto')
+const tabActual = ref<'texto' | 'citas'>('texto')
 
-const palabra  = computed(() => store.getPalabra(route.params.slug))
-const nCitas   = computed(() => palabra.value?.citas?.length ?? 0)
+const palabra  = computed<Word | null>(() => store.getPalabra(String(route.params.slug)))
+const nCitas   = computed<number>(() => palabra.value?.citas?.length ?? 0)
 const citasCat = computed(() => categorizarCitas(palabra.value?.citas ?? []))
 const sintesis = computed(() => extraerSintesis(palabra.value?.texto))
 
-const textoHTML = computed(() => {
+// v-html is safe: resaltarCitas() runs escapeHTML() on all user-facing text
+// before constructing the HTML string. Only trusted span/h3/p tags are injected.
+const textoHTML = computed<string>(() => {
   if (!palabra.value?.texto) return ''
   const decoded = decodeEntities(palabra.value.texto)
   return resaltarCitas(decoded, palabra.value.citas ?? [])
 })
 
-const prevPalabra = computed(() => {
+const prevPalabra = computed<Word | null>(() => {
   const lista = store.palabrasOrdenadas
-  const idx   = lista.findIndex(p => p.slug === route.params.slug)
+  const idx   = lista.findIndex((p: Word) => p.slug === route.params.slug)
   return idx > 0 ? lista[idx - 1] : null
 })
-const nextPalabra = computed(() => {
+const nextPalabra = computed<Word | null>(() => {
   const lista = store.palabrasOrdenadas
-  const idx   = lista.findIndex(p => p.slug === route.params.slug)
+  const idx   = lista.findIndex((p: Word) => p.slug === route.params.slug)
   return idx !== -1 && idx < lista.length - 1 ? lista[idx + 1] : null
 })
 
@@ -217,27 +220,30 @@ watch(palabra, p => {
 
 watch(() => route.params.slug, () => {
   tabActual.value = 'texto'
-  window.scrollTo({ top: 0, behavior: 'instant' })
+  window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
 })
 
-function scrollToSection(id) {
+function scrollToSection(id: string): void {
   const el = document.getElementById(id)
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
-function abrirCita(cita) {
+function abrirCita(cita: string): void {
   window.open(
     `https://www.biblegateway.com/passage/?search=${encodeURIComponent(cita)}&version=RVR1960`,
-    '_blank', 'noopener'
+    '_blank',
+    'noopener,noreferrer'
   )
 }
 
-function handleCitaClick(e) {
-  const span = e.target.closest('.cita-inline')
-  if (span) abrirCita(span.dataset.cita)
+function handleCitaClick(e: MouseEvent): void {
+  const span = (e.target as Element).closest('.cita-inline')
+  if (span instanceof HTMLElement && span.dataset.cita) {
+    abrirCita(span.dataset.cita)
+  }
 }
 
-onMounted(() => store.cargar())
+onMounted(() => { void store.cargar() })
 </script>
 
 <style scoped>
